@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BD_GESTPERSOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Taches">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nom" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="description" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="fichiers" Type="nvarchar" MaxLength="200" />
+    <Property Name="importance" Type="smallint" Nullable="false" />
+    <Property Name="date_saisie" Type="datetime" StoreGeneratedPattern="Computed" Nullable="false" />
+    <Property Name="utilisateur" Type="int" />
+  </EntityType>
+  <EntityType Name="Utilisateurs">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nom" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="mdp" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="role" Type="smallint" Nullable="false" />
+    <Property Name="photo" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Utilisaeurs_Taches">
+    <End Role="Utilisateurs" Type="Self.Utilisateurs" Multiplicity="0..1" />
+    <End Role="Taches" Type="Self.Taches" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Utilisateurs">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Taches">
+        <PropertyRef Name="utilisateur" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BD_GESTPERSOModelStoreContainer">
+    <EntitySet Name="Taches" EntityType="Self.Taches" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Utilisateurs" EntityType="Self.Utilisateurs" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Utilisaeurs_Taches" Association="Self.FK_Utilisaeurs_Taches">
+      <End Role="Utilisateurs" EntitySet="Utilisateurs" />
+      <End Role="Taches" EntitySet="Taches" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

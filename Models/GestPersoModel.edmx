@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BD_GESTPERSOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Taches">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="fichiers" Type="nvarchar" MaxLength="200" />
+          <Property Name="importance" Type="smallint" Nullable="false" />
+          <Property Name="date_saisie" Type="datetime" StoreGeneratedPattern="Computed" Nullable="false" />
+          <Property Name="utilisateur" Type="int" />
+        </EntityType>
+        <EntityType Name="Utilisateurs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="mdp" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="role" Type="smallint" Nullable="false" />
+          <Property Name="photo" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Utilisaeurs_Taches">
+          <End Role="Utilisateurs" Type="Self.Utilisateurs" Multiplicity="0..1" />
+          <End Role="Taches" Type="Self.Taches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateurs">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Taches">
+              <PropertyRef Name="utilisateur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BD_GESTPERSOModelStoreContainer">
+          <EntitySet Name="Taches" EntityType="Self.Taches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Utilisateurs" EntityType="Self.Utilisateurs" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Utilisaeurs_Taches" Association="Self.FK_Utilisaeurs_Taches">
+            <End Role="Utilisateurs" EntitySet="Utilisateurs" />
+            <End Role="Taches" EntitySet="Taches" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BD_GESTPERSOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Tach">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fichiers" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="importance" Type="Int16" Nullable="false" />
+          <Property Name="date_saisie" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Computed" Precision="3" />
+          <Property Name="utilisateur" Type="Int32" />
+          <NavigationProperty Name="Taches1" Relationship="Self.FK_Taches_Taches" FromRole="Taches" ToRole="Taches1" />
+          <NavigationProperty Name="Tach1" Relationship="Self.FK_Taches_Taches" FromRole="Taches1" ToRole="Taches" />
+          <NavigationProperty Name="Utilisateur1" Relationship="BD_GESTPERSOModel.FK_Utilisaeurs_Taches" FromRole="Tach" ToRole="Utilisateur" />
+        </EntityType>
+        <EntityType Name="Utilisateur">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="mdp" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="role" Type="Int16" Nullable="false" />
+          <Property Name="photo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Taches" Relationship="BD_GESTPERSOModel.FK_Utilisaeurs_Taches" FromRole="Utilisateur" ToRole="Tach" />
+        </EntityType>
+        <Association Name="FK_Taches_Taches">
+          <End Role="Taches" Type="Self.Tach" Multiplicity="1" />
+          <End Role="Taches1" Type="Self.Tach" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Taches">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Taches1">
+              <PropertyRef Name="id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BD_GESTPERSOEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Taches" EntityType="Self.Tach" />
+          <EntitySet Name="Utilisateurs" EntityType="Self.Utilisateur" />
+          <AssociationSet Name="FK_Taches_Taches" Association="Self.FK_Taches_Taches">
+            <End Role="Taches" EntitySet="Taches" />
+            <End Role="Taches1" EntitySet="Taches" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Utilisaeurs_Taches" Association="BD_GESTPERSOModel.FK_Utilisaeurs_Taches">
+            <End Role="Utilisateur" EntitySet="Utilisateurs" />
+            <End Role="Tach" EntitySet="Taches" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_Utilisaeurs_Taches">
+          <End Type="BD_GESTPERSOModel.Utilisateur" Role="Utilisateur" Multiplicity="0..1" />
+          <End Type="BD_GESTPERSOModel.Tach" Role="Tach" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateur">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tach">
+              <PropertyRef Name="utilisateur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BD_GESTPERSOModelStoreContainer" CdmEntityContainer="BD_GESTPERSOEntities">
+          <EntitySetMapping Name="Taches">
+            <EntityTypeMapping TypeName="BD_GESTPERSOModel.Tach">
+              <MappingFragment StoreEntitySet="Taches">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="fichiers" ColumnName="fichiers" />
+                <ScalarProperty Name="importance" ColumnName="importance" />
+                <ScalarProperty Name="date_saisie" ColumnName="date_saisie" />
+                <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Utilisateurs">
+            <EntityTypeMapping TypeName="BD_GESTPERSOModel.Utilisateur">
+              <MappingFragment StoreEntitySet="Utilisateurs">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="mdp" ColumnName="mdp" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

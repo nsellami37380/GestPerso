@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "AjoutUtilisateur";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Ajouter un utilisateur</h2>
+
+<div>
+   <form id="formUtilisateurs" name="formUtilisateurs" action="" method="post">      <!--attention pas de name-->
+      <div class="row">
+         <div class="col-xs-12 col-sm-6">
+            <div class="form-group">
+               <label>Nom</label>
+               <input type="text" class="form-control" id="nom_utilisateur" required />
+            </div>
+            <div class="form-group">
+               <label>email</label>
+               <input type="email" class="form-control" id="email_utilisateur" required />
+            </div>
+         </div>
+
+
+         <div class="col-xs-12 col-sm-4">
+            <div class="form-group">
+               <label>Mot de passe</label>
+               <input type="password" class="form-control" id="mdp" required />
+            </div>
+            <div class="form-group">
+               <label>Role</label>       <br />
+               <select id="Role" name="Role">
+                  <option value="1">Administrateur</option>
+                  <option value="2">Utilisateur</option>
+                  <option value="3">Visiteur</option>
+               </select>
+            </div>
+
+            <div class="form-group">
+               <label>Photo</label>
+               <input type="file" id="PHOTO" name="photo" class="form-control" />
+            </div>
+
+         </div>
+      </div>
+      <div class="row">
+         <input type="submit" id="submitTache" name="submitTache" value="Enregistrer" class="btn btn-primary" />
+      </div>
+      <hr />
+   </form>
+   <div class="table-responsive">
+      <table class="table table-bordered">
+         <tr>
+            <th>Utilisateur</th>
+            <th>Photo</th>
+            <th>EMail</th>
+            <th>Role</th>
+         </tr>
+      </table>
+   </div>
+
+</div>
+

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BD_GESTPERSOModelStoreContainer" CdmEntityContainer="BD_GESTPERSOEntities">
+    <EntitySetMapping Name="Taches">
+      <EntityTypeMapping TypeName="BD_GESTPERSOModel.Tach">
+        <MappingFragment StoreEntitySet="Taches">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="fichiers" ColumnName="fichiers" />
+          <ScalarProperty Name="importance" ColumnName="importance" />
+          <ScalarProperty Name="date_saisie" ColumnName="date_saisie" />
+          <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Utilisateurs">
+      <EntityTypeMapping TypeName="BD_GESTPERSOModel.Utilisateur">
+        <MappingFragment StoreEntitySet="Utilisateurs">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="mdp" ColumnName="mdp" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="role" ColumnName="role" />
+          <ScalarProperty Name="photo" ColumnName="photo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
