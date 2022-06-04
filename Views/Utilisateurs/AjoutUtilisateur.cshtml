@@ -1,22 +1,22 @@
-﻿
+﻿@model WAGestPerso.Models.Utilisateur
 @{
-    ViewBag.Title = "AjoutUtilisateur";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+   ViewBag.Title = "AjoutUtilisateur";
+   Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Ajouter un utilisateur</h2>
 
 <div>
-   <form id="formUtilisateurs" name="formUtilisateurs" action="" method="post">      <!--attention pas de name-->
+   <form id="formUtilisateurs" name="formUtilisateurs" action="" method="post" enctype="multipart/form-data">
       <div class="row">
          <div class="col-xs-12 col-sm-6">
             <div class="form-group">
                <label>Nom</label>
-               <input type="text" class="form-control" id="nom_utilisateur" required />
+               <input type="text" class="form-control" id="nom_utilisateur" name="nom" value="@(Model!=null?Model.nom:"")" required />
             </div>
             <div class="form-group">
                <label>email</label>
-               <input type="email" class="form-control" id="email_utilisateur" required />
+               <input type="email" class="form-control" id="email_utilisateur" name="email" value="@(Model!=null?Model.email:"")" required />
             </div>
          </div>
 
@@ -24,14 +24,14 @@
          <div class="col-xs-12 col-sm-4">
             <div class="form-group">
                <label>Mot de passe</label>
-               <input type="password" class="form-control" id="mdp" required />
+               <input type="password" class="form-control" id="mdp" name="mdp" value="@(Model!=null?Model.mdp:"")" required />
             </div>
             <div class="form-group">
                <label>Role</label>       <br />
-               <select id="Role" name="Role">
-                  <option value="1">Administrateur</option>
-                  <option value="2">Utilisateur</option>
-                  <option value="3">Visiteur</option>
+               <select id="Role" name="role">
+                  <option value="1" @(Model!=null? Model.role==1? "selected":"":"")>Administrateur</option>
+                  <option value="2" @(Model!=null? Model.role==2? "selected":"":"")>Utilisateur</option>
+                  <option value="3" @(Model!=null? Model.role==3? "selected":"":"")>Visiteur</option>
                </select>
             </div>
 
@@ -55,6 +55,20 @@
             <th>EMail</th>
             <th>Role</th>
          </tr>
+
+         @foreach (var data in ViewBag.listeUtilisateurs)
+         {
+            <tr>
+               <td>@data.nom</td>
+               <td><img src="~/Images/@data.photo" width="100" height="80" /></td>
+               <td>@data.email</td>
+               <td>@data.role</td>
+               <td><a href="~/Utilisateurs/ModifierUtilisateur/@data.id" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-edit"></span>Modifier</a> </td>
+               <td><a href="~/Utilisateurs/SupprimerUtilisateur/@data.id" class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span>Supprimer</a></td>
+            </tr>
+
+         }
+
       </table>
    </div>
 

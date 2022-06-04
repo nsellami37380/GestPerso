@@ -88,3 +88,4 @@ C:\Users\Sellami Noureddine\source\repos\WAGestPerso\obj\Debug\WAGestPerso.cspro
 C:\Users\Sellami Noureddine\source\repos\WAGestPerso\obj\Debug\WAGestPerso.csproj.CopyComplete
 C:\Users\Sellami Noureddine\source\repos\WAGestPerso\obj\Debug\WAGestPerso.dll
 C:\Users\Sellami Noureddine\source\repos\WAGestPerso\obj\Debug\WAGestPerso.pdb
+C:\Users\Sellami Noureddine\source\repos\WAGestPerso\obj\Debug\WAGestPerso.csproj.AssemblyReference.cache

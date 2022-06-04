@@ -1,4 +1,4 @@
-﻿
+﻿@model WAGestPerso.Models.Tach
 @{
     ViewBag.Title = "Gestion des taches";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,19 +7,23 @@
 <h2>Ajouter une tache</h2>
 
  <div>
-    <form id="formTache" name="formTache" action="" method="post">
+    <form id="formTache" name="formTache" action="" method="post" enctype="multipart/form-data">
        <div class="row" style="width:100%;">
+          @if (Model != null)
+          {
+             <input type="hidden" name="id" id="id" value="@Model.id" />
+          }
           <div class="col-xs-12 col-sm-3">
              <div class="form-group">
                 <label>Nom</label>
-                <input type="text" class="form-control" id="nom_tache" name="nom" required />
+                <input type="text" class="form-control" id="nom_tache" name="nom" value="@(Model!=null?Model.nom:"")" required />
              </div>
              <div class="form-group">
                 <label>Importance</label>       <br />
                 <select id="importance" name="importance">
-                   <option value="1">Urgente</option>
-                   <option value="2">Prioritaire</option>
-                   <option value="3">Normale</option>
+                   <option value="1" @(Model!=null? Model.importance==1? "selected":"":"")>Normale</option>
+                   <option value="2" @(Model!=null? Model.importance==2? "selected":"":"")>Prioritaire</option>
+                   <option value="3" @(Model!=null? Model.importance==3? "selected":"":"")>Urgente</option>
                 </select>
              </div>
           </div>
@@ -28,13 +32,27 @@
           <div class="col-xs-12 col-sm-9">
              <div class="form-group" style="width:100%;">
                 <label>Description</label>
-                <textarea type="text" id="description_tache" name="description" class="form-control" style="width:100%;" required>   </textarea>
+                <textarea type="text" id="description_tache" name="description" class="form-control" style="width:100%;" value="" required> @(Model!=null? Model.description:"")  </textarea>
              </div>
              <div class="form-group">
                 <label for="fichiers_tache">Fichiers</label>
-                <textarea type="text" id="fichiers_tache" class="form-control" name="fichiers" style="white-space:pre-line" readonly> </textarea>
-                <input type="file" id="mesfichiers" title="Ajouter" value="Ajouter un fichier" onchange="fileChange(this)" multiple>
+                <textarea type="text" id="fichiers_tache" class="form-control" name="fichiers" style="white-space:pre-line" value="" readonly> @(Model!=null? Model.fichiers:"") </textarea>
+                <input type="file" id="fichiers" name="fichiers" title="Ajouter" value="Ajouter un fichier" onchange="fileChange(this)" multiple>
                 <!--   <input type="button" value="save to file" onclick="saveToFile()" />  -->
+             </div>
+             <div class="form-group">
+
+                <label>Affecter à un utilisateur</label>
+                <select id="utilisateur" name="utilisateur" class="form-control">
+                   <option value="">Non affecte</option>
+                   @foreach (var data in ViewBag.listeUtilisateurs)
+                   {
+
+                      <option value="@data.id" @(Model != null ? Model.id == data.id ? "selected" : "" : "")>@data.nom</option>
+                   }
+
+                </select>
+
              </div>
 
           </div>
@@ -52,7 +70,22 @@
                <th>Importance</th>
                <th>Fichiers</th>
                <th>Date saisie</th>
+               <th>Utilisateur</th>
             </tr>
+            @foreach (var data in ViewBag.listeTaches)
+            {
+         <tr>
+            <td>@data.nom</td>
+            <td>@data.description</td>
+            <td>@data.importance</td>
+            <td>@data.fichiers</td>
+            <td>@data.date_saisie</td>
+            <td>@data.utilisateur</td>
+            <td><a href="~/Taches/ModifierTache/@data.id" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-edit"></span>Modifier</a> </td>
+            <td><a href="~/Taches/SupprimerTache/@data.id" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>Supprimer</a></td>
+
+         </tr>
+            }
          </table>
       </div>
 
@@ -62,10 +95,13 @@
     function fileChange(lesFichiers) {
        var monTextArea = document.getElementById("fichiers_tache");
        for (var i = 0; i < lesFichiers.files.length; i++) {
-          monTextArea.value += '\r\n' + lesFichiers.files[i].name ;
+          if (monTextArea.value.trim() != "") {
+             monTextArea.value += '\r\n';
+          }
+          monTextArea.value += lesFichiers.files[i].name ;
          
        }
-       document.getElementById("fichiers_tache").style.height = lesFichiers.files.length * 20 + "px";
+       document.getElementById("fichiers_tache").style.height = lesFichiers.files.length * 25 + "px";
        
     }
     var data = { "firstField" : "value1", "secondField": "value2" };
