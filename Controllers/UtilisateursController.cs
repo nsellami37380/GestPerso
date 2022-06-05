@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using WAGestPerso.Models;
 using System.Data.Entity;
+using System.Web.Security;
 
 namespace WAGestPerso.Controllers
 {
@@ -48,7 +49,7 @@ namespace WAGestPerso.Controllers
                   }
                }
 
-
+               utilisateur.mdp = FormsAuthentication.HashPasswordForStoringInConfigFile(utilisateur.mdp, "SHA1");
                db.Utilisateurs.Add(utilisateur);
                db.SaveChanges();
               

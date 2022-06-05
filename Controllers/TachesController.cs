@@ -26,6 +26,7 @@ namespace WAGestPerso.Controllers
             ViewBag.Message = "Gérer vos taches ";
             ViewBag.ListeTaches = db.Taches.ToList();
             ViewBag.listeUtilisateurs = db.Utilisateurs.ToList();
+
             return View();
          }
          catch (Exception)

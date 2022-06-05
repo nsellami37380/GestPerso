@@ -6,12 +6,16 @@
 
 <hr />
 
-@foreach (var data in ViewBag.listeNonAffecte)
+@if (ViewBag.nbNonAffecte != 0)
 {
-
    <div style="background-color: #000000; font-size: 16px; color:#FFFFFF; width:100%; padding-left:10px">
       Non affecte
    </div>
+}
+@foreach (var data in ViewBag.listeNonAffecte)
+{
+
+
    <div class="row">
 
       <hr />
@@ -29,6 +33,7 @@
 
 @foreach (var data in ViewBag.listeUtilisateurs)
 {
+   if (data.Taches.Count == 0) { continue; }
    <div style="background-color: #000000; font-size: 16px; color:#FFFFFF; width:100%; padding-left:10px">
       @data.nom
    </div>
@@ -39,11 +44,11 @@
       <div>
          <div class="row">
             <div style="background-color: #CCCCCC; font-size: 16px; color: #000000; width: 100%; padding-left:10px">@tache.nom</div>
-
+            <br />
             <div>@tache.description</div>
          </div>
       </div>
 
    }
-   <hr />
+   <br />
 }

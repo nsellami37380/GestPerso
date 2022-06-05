@@ -8,13 +8,15 @@ using WAGestPerso.Models;
 
 namespace WAGestPerso.Controllers
 {
+   [Authorize]
    public class HomeController : Controller
    {
       BD_GESTPERSOEntities db = new BD_GESTPERSOEntities();
       public ActionResult Index()
       {
+        
          ViewBag.listeUtilisateurs = db.Utilisateurs.ToList().OrderBy(r => r.nom);
-  
+         ViewBag.nbNonAffecte = db.Taches.ToList().Where(r => r.utilisateur == null).Count();
          ViewBag.listeNonAffecte = db.Taches.ToList().Where(r => r.utilisateur == null);
 
 

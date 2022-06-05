@@ -77,10 +77,10 @@
          <tr>
             <td>@data.nom</td>
             <td>@data.description</td>
-            <td>@data.importance</td>
+            <td>@(data.importance==1? "Normale" : data.importance == 2 ? "Prioritaire" :"Urgente")   </td>
             <td>@data.fichiers</td>
             <td>@data.date_saisie</td>
-            <td>@data.utilisateur</td>
+            <td>@(data.utilisateur == null? "Non affecte": getNameUtilisateur(data.utilisateur))</td>
             <td><a href="~/Taches/ModifierTache/@data.id" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-edit"></span>Modifier</a> </td>
             <td><a href="~/Taches/SupprimerTache/@data.id" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>Supprimer</a></td>
 
@@ -89,7 +89,20 @@
          </table>
       </div>
 
- </div>
+ </div> 
+@functions
+ {
+   public string getNameUtilisateur(int id)
+    {
+
+       foreach(var data in ViewBag.listeUtilisateurs)
+       {
+          if (data.id == id ) { return data.nom; }
+       }
+       return "Inconnu";
+    }
+
+ }
  <script type="text/javascript">
 
     function fileChange(lesFichiers) {
@@ -99,24 +112,24 @@
              monTextArea.value += '\r\n';
           }
           monTextArea.value += lesFichiers.files[i].name ;
-         
+
        }
        document.getElementById("fichiers_tache").style.height = lesFichiers.files.length * 25 + "px";
-       
+
     }
     var data = { "firstField" : "value1", "secondField": "value2" };
     function saveToFile() {
         $.ajax({
-            url: "/ControllerName/ActionName",
+       url: "/ControllerName/ActionName",
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(data),
             success: function (data) {
 
-            },
+          },
             error: function (xhr) {
-                console.log(xhr);
-            }
-        });
+             console.log(xhr);
+          }
+       });
     };
  </script>
