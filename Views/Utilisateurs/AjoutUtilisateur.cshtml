@@ -65,9 +65,12 @@
                <td>@data.email</td>
                <td>@(data.role == 1 ? "administrateur" : data.role == 2 ? "Utilisateur" : "Visiteur") </td>
                <td><a href="~/Utilisateurs/ModifierUtilisateur/@data.id" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-edit"></span>Modifier</a> </td>
+               @if (data.Taches.Count == 0)
+               {
                <td><a href="~/Utilisateurs/SupprimerUtilisateur/@data.id" 
                       onclick="return confirm('Voulez-vous vraiment supprimer l\'utilisateur : @data.nom')"
                       class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>Supprimer</a></td>
+               }
             </tr>
 
          }

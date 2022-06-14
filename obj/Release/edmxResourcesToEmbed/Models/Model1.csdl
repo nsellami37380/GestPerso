@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BD_GESTPERSOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Tach">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="fichiers" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="importance" Type="Int16" Nullable="false" />
+    <Property Name="date_saisie" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="utilisateur" Type="Int32" />
+    <Property Name="Termine" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Utilisateur1" Relationship="Self.FK_Utilisaeurs_Taches" FromRole="Taches" ToRole="Utilisateurs" />
+  </EntityType>
+  <EntityType Name="Utilisateur">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="mdp" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="role" Type="Int16" Nullable="false" />
+    <Property Name="photo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Taches" Relationship="Self.FK_Utilisaeurs_Taches" FromRole="Utilisateurs" ToRole="Taches" />
+  </EntityType>
+  <Association Name="FK_Utilisaeurs_Taches">
+    <End Role="Utilisateurs" Type="Self.Utilisateur" Multiplicity="0..1" />
+    <End Role="Taches" Type="Self.Tach" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Utilisateurs">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Taches">
+        <PropertyRef Name="utilisateur" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BD_GESTPERSOEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Taches" EntityType="Self.Tach" />
+    <EntitySet Name="Utilisateurs" EntityType="Self.Utilisateur" />
+    <AssociationSet Name="FK_Utilisaeurs_Taches" Association="Self.FK_Utilisaeurs_Taches">
+      <End Role="Utilisateurs" EntitySet="Utilisateurs" />
+      <End Role="Taches" EntitySet="Taches" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -130,8 +130,9 @@ namespace WAGestPerso.Controllers
             }
 
          }
-         catch (Exception)
+         catch (Exception E)
          {
+            Console.WriteLine(E.Message);
             return HttpNotFound();
          }
          return RedirectToAction("AjoutUtilisateur");
