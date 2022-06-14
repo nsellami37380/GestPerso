@@ -30,14 +30,20 @@ namespace WAGestPerso.Controllers
             {
                return RedirectToAction("Login");
             }
-
+            string role;
             FormsAuthentication.SetAuthCookie(loginModel.UserName, false);
-            /* var ticket = new FormsAuthenticationTicket(1, loginModel.UserName, DateTime.Now,
-                DateTime.Now.AddMinutes(60), false, "administrateur|gerant");
+          /*  switch (user.role) 
+            { 
+               case 1: role = "Administrateur";break;
+               case 2: role = "Utilisateur"; break;
+               default: role = "Visiteur"; break;
+            }    */
+            var ticket = new FormsAuthenticationTicket(1, loginModel.UserName, DateTime.Now,
+                DateTime.Now.AddMinutes(60), false, user.role.ToString());
              var encryptedTicket = FormsAuthentication.Encrypt(ticket);
              var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
 
-             Response.Cookies.Add(cookie);*/
+             Response.Cookies.Add(cookie);
 
          //   Roles.AddUserToRole(loginModel.UserName, "Administrators");
             if (string.IsNullOrEmpty(returnUrl))

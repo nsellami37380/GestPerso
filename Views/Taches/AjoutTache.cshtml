@@ -13,6 +13,7 @@
           {
              <input type="hidden" name="id" id="id" value="@Model.id" />
           }
+          <input type="hidden" name="date_saisie" id="date_saisie" value="@DateTime.Now" />
           <div class="col-xs-12 col-sm-3">
              <div class="form-group">
                 <label>Nom</label>
@@ -21,9 +22,9 @@
              <div class="form-group">
                 <label>Importance</label>       <br />
                 <select id="importance" name="importance">
-                   <option value="1" @(Model!=null? Model.importance==1? "selected":"":"")>Normale</option>
-                   <option value="2" @(Model!=null? Model.importance==2? "selected":"":"")>Prioritaire</option>
-                   <option value="3" @(Model!=null? Model.importance==3? "selected":"":"")>Urgente</option>
+                   <option value="1" @(Model != null ? Model.importance == 1 ? "selected" : "" : "")>Normale</option>
+                   <option value="2" @(Model != null ? Model.importance == 2 ? "selected" : "" : "")>Prioritaire</option>
+                   <option value="3" @(Model != null ? Model.importance == 3 ? "selected" : "" : "")>Urgente</option>
                 </select>
              </div>
           </div>
@@ -74,17 +75,20 @@
             </tr>
             @foreach (var data in ViewBag.listeTaches)
             {
-         <tr>
-            <td>@data.nom</td>
-            <td>@data.description</td>
-            <td>@(data.importance==1? "Normale" : data.importance == 2 ? "Prioritaire" :"Urgente")   </td>
-            <td>@data.fichiers</td>
-            <td>@data.date_saisie</td>
-            <td>@(data.utilisateur == null? "Non affecte": getNameUtilisateur(data.utilisateur))</td>
-            <td><a href="~/Taches/ModifierTache/@data.id" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-edit"></span>Modifier</a> </td>
-            <td><a href="~/Taches/SupprimerTache/@data.id" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>Supprimer</a></td>
+               <tr style="@(data.Termine? "background-color:grey":"")">
+                  <td>@data.nom</td>
+                  <td>@data.description</td>
+                  <td>@(data.importance==1? "Normale" : data.importance == 2 ? "Prioritaire" :"Urgente")   </td>
+                  <td>@data.fichiers</td>
+                  <td>@data.date_saisie</td>
+                  <td>@(data.utilisateur == null? "Non affecte": getNameUtilisateur(data.utilisateur))</td>
+                  <td><a href="~/Taches/ModifierTache/@data.id" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-edit"></span>Modifier</a> </td>
+                  <td>
+                     <a href="~/Taches/SupprimerTache/@data.id"
+                        onclick="return confirm('Voulez-vous vraiment supprimer la tache : @data.description')" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>Supprimer</a>
+                  </td>
 
-         </tr>
+               </tr>
             }
          </table>
       </div>

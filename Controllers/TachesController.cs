@@ -9,8 +9,8 @@ using WAGestPerso.Models;
 
 namespace WAGestPerso.Controllers           
 {
-
-    public class TachesController : Controller
+   [Authorize]
+   public class TachesController : Controller
     {
       BD_GESTPERSOEntities db = new BD_GESTPERSOEntities();
       // GET: Taches
@@ -42,6 +42,7 @@ namespace WAGestPerso.Controllers
          {
             if(ModelState.IsValid)
             {
+               tache.date_saisie = DateTime.Now;
                tache.fichiers = "";
                for (int i = 0; i < Request.Files.Count; i++)
                {
@@ -52,16 +53,18 @@ namespace WAGestPerso.Controllers
                      var path = Path.Combine(Server.MapPath("~/Fichiers"), fileName);
                      if (i > 0) tache.fichiers += ";";
                      tache.fichiers += fileName;
+
                      currentFile.SaveAs(path);
                   }                    
                }
+                
                db.Taches.Add(tache);
                db.SaveChanges();
                //RedirectToAction("AjoutTache");
             }
             return RedirectToAction("AjoutTache");
          }
-         catch (Exception)
+         catch (Exception E)
          {
 
             return HttpNotFound();
@@ -91,6 +94,7 @@ namespace WAGestPerso.Controllers
       [HttpPost]
       public ActionResult ModifierTache(Tach tache)
       {
+
          try
          {
             if(ModelState.IsValid)
@@ -98,6 +102,7 @@ namespace WAGestPerso.Controllers
                db.Entry(tache).State = EntityState.Modified;
 
                // Si des fichiers sont renseignés on les récupère
+               if (Request.Files.Count > 0) { tache.fichiers = ""; }
                for (int i = 0; i < Request.Files.Count; i++)
                {
                   HttpPostedFileBase currentFile = Request.Files[i];

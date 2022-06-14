@@ -9,8 +9,9 @@
     <Property Name="description" Type="nvarchar" MaxLength="200" Nullable="false" />
     <Property Name="fichiers" Type="nvarchar" MaxLength="200" />
     <Property Name="importance" Type="smallint" Nullable="false" />
-    <Property Name="date_saisie" Type="datetime" StoreGeneratedPattern="Computed" Nullable="false" />
+    <Property Name="date_saisie" Type="datetime" Nullable="false" StoreGeneratedPattern="Computed" />
     <Property Name="utilisateur" Type="int" />
+    <Property Name="Termine" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="Utilisateurs">
     <Key>

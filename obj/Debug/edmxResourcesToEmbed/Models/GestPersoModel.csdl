@@ -9,11 +9,12 @@
     <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="fichiers" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
     <Property Name="importance" Type="Int16" Nullable="false" />
-    <Property Name="date_saisie" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Computed" Precision="3" />
+    <Property Name="date_saisie" Type="DateTime" annotation:StoreGeneratedPattern="Computed" Precision="3" Nullable="false" />
     <Property Name="utilisateur" Type="Int32" />
     <NavigationProperty Name="Taches1" Relationship="Self.FK_Taches_Taches" FromRole="Taches" ToRole="Taches1" />
     <NavigationProperty Name="Tach1" Relationship="Self.FK_Taches_Taches" FromRole="Taches1" ToRole="Taches" />
     <NavigationProperty Name="Utilisateur1" Relationship="BD_GESTPERSOModel.FK_Utilisaeurs_Taches" FromRole="Tach" ToRole="Utilisateur" />
+    <Property Name="Termine" Type="Boolean" Nullable="false" />
   </EntityType>
   <EntityType Name="Utilisateur">
     <Key>

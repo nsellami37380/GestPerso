@@ -54,8 +54,12 @@ C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\Antlr3.Runtime.dll
 C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\EntityFramework.dll
 C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\EntityFramework.SqlServer.dll
 C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\Microsoft.IdentityModel.Logging.dll
+C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\Microsoft.Owin.dll
 C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\Newtonsoft.Json.dll
+C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\Owin.dll
 C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\System.Web.Helpers.dll
 C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\System.Web.Mvc.dll
 C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\System.Web.Optimization.dll
@@ -66,6 +70,9 @@ C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\System.Web.WebPages.Raz
 C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\WebGrease.dll
 C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\EntityFramework.xml
 C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\EntityFramework.SqlServer.xml
+C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\Microsoft.IdentityModel.Abstractions.xml
+C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\Microsoft.IdentityModel.Logging.xml
+C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\Microsoft.Owin.xml
 C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\System.Web.Helpers.xml
 C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\System.Web.Mvc.xml
 C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\System.Web.Optimization.xml
@@ -77,6 +84,7 @@ C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\Newtonsoft.Json.xml
 C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\Antlr3.Runtime.pdb
 C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\fr\EntityFramework.resources.dll
+C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\fr\EntityFramework.SqlServer.resources.dll
 C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\fr\System.Web.Helpers.resources.dll
 C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\fr\System.Web.Mvc.resources.dll
 C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\fr\System.Web.Optimization.resources.dll

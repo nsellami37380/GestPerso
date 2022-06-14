@@ -7,18 +7,24 @@ using System.Web.Mvc;
 using WAGestPerso.Models;
 using System.Data.Entity;
 using System.Web.Security;
+using Microsoft.IdentityModel;
 
 namespace WAGestPerso.Controllers
 {
-    public class UtilisateursController : Controller
+   [Authorize]
+   public class UtilisateursController : Controller
     {
       BD_GESTPERSOEntities db = new BD_GESTPERSOEntities();
       // GET: Utilisateurs
+
+      //public applicationRoleManager u; 
+      
+      
+      
       public ActionResult AjoutUtilisateur()
         {
          try
-         {
-           
+         {            
             ViewBag.listeUtilisateurs = db.Utilisateurs.ToList();
             return View();
          }
@@ -90,6 +96,18 @@ namespace WAGestPerso.Controllers
             if (ModelState.IsValid)
             {
                db.Entry(utilisateur).State = EntityState.Modified;
+
+               if (Request.Files.Count > 0)
+               {
+                  var file = Request.Files[0];
+                  if (file != null && file.ContentLength > 0)
+                  {
+                     var fileName = Path.GetFileName(file.FileName);
+                     var path = Path.Combine(Server.MapPath("~/Images"), fileName);
+                     file.SaveAs(path);
+                     utilisateur.photo = fileName;
+                  }
+               }
                db.SaveChanges();
             }
             return RedirectToAction("AjoutUtilisateur");

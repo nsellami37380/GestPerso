@@ -37,7 +37,7 @@
 
             <div class="form-group">
                <label>Photo</label>
-               <input type="file" id="PHOTO" name="photo" class="form-control" />
+               <input type="file" id="PHOTO" name="photo" class="form-control" value="@(Model!=null?Model.photo:"")"/>
             </div>
 
          </div>
@@ -62,9 +62,11 @@
                <td>@data.nom</td>
                <td><img src="~/Images/@data.photo" width="100" height="80" /></td>
                <td>@data.email</td>
-               <td>@data.role</td>
+               <td>@(data.role == 1 ? "administrateur" : data.role == 2 ? "Utilisateur" : "Visiteur") </td>
                <td><a href="~/Utilisateurs/ModifierUtilisateur/@data.id" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-edit"></span>Modifier</a> </td>
-               <td><a href="~/Utilisateurs/SupprimerUtilisateur/@data.id" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>Supprimer</a></td>
+               <td><a href="~/Utilisateurs/SupprimerUtilisateur/@data.id" 
+                      onclick="return confirm('Voulez-vous vraiment supprimer l\'utilisateur : @data.nom')"
+                      class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>Supprimer</a></td>
             </tr>
 
          }

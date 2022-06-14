@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Taches">
       <EntityTypeMapping TypeName="BD_GESTPERSOModel.Tach">
         <MappingFragment StoreEntitySet="Taches">
+          <ScalarProperty Name="Termine" ColumnName="Termine" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="nom" ColumnName="nom" />
           <ScalarProperty Name="description" ColumnName="description" />

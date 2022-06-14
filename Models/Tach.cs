@@ -21,9 +21,8 @@ namespace WAGestPerso.Models
         public short importance { get; set; }
         public System.DateTime date_saisie { get; set; }
         public Nullable<int> utilisateur { get; set; }
+        public bool Termine { get; set; }
     
-        public virtual Tach Taches1 { get; set; }
-        public virtual Tach Tach1 { get; set; }
         public virtual Utilisateur Utilisateur1 { get; set; }
     }
 }

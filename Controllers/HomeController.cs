@@ -39,11 +39,22 @@ namespace WAGestPerso.Controllers
       public ActionResult sapproprierrTache(int id)
       {
          Tach tache = db.Taches.Find(id);
-         tache.utilisateur = 4;
+         Utilisateur utilisateur = db.Utilisateurs.FirstOrDefault(u => u.nom == User.Identity.Name);
+         tache.utilisateur = utilisateur.id;
          db.Entry(tache).State = EntityState.Modified;
          db.SaveChanges();
          return RedirectToAction("index");
       }
+      public ActionResult TerminerTache(int id)
+      {
+         Tach tache = db.Taches.Find(id);
+         tache.Termine = true;
+   
+         db.SaveChanges();
+         return RedirectToAction("index");
+
+      }
+      
 
    }
 }
