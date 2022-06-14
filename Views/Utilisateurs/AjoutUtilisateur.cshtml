@@ -60,6 +60,7 @@
          {
             <tr>
                <td>@data.nom</td>
+               @if(data.photo == null) { data.photo = "user.jpg"; }
                <td><img src="~/Images/@data.photo" width="100" height="80" /></td>
                <td>@data.email</td>
                <td>@(data.role == 1 ? "administrateur" : data.role == 2 ? "Utilisateur" : "Visiteur") </td>
