@@ -24,7 +24,15 @@ namespace WAGestPerso.Controllers
          try
          {
             ViewBag.Message = "Gérer vos taches ";
-            ViewBag.ListeTaches = db.Taches.ToList();
+
+            var ListeTaches =
+               from taches in db.Taches
+               join utilisateurs in db.Utilisateurs on taches.utilisateur equals utilisateurs.id
+               orderby utilisateurs.nom
+               select taches;
+
+            //   ViewBag.ListeTaches = db.Taches.ToList().OrderBy(t => t.utilisateur.);
+            ViewBag.ListeTaches = ListeTaches;
             ViewBag.listeUtilisateurs = db.Utilisateurs.ToList();
 
             return View();
