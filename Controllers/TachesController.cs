@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -7,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using WAGestPerso.Models;
 
-namespace WAGestPerso.Controllers           
+namespace WAGestPerso.Controllers
 {
    [Authorize]
    public class TachesController : Controller
@@ -15,25 +14,41 @@ namespace WAGestPerso.Controllers
       BD_GESTPERSOEntities db = new BD_GESTPERSOEntities();
       // GET: Taches
       public ActionResult Index()
-        {
-            return View();
-        }
+       {
+           return View();
+       }
 
-      public ActionResult AjoutTache()
+      public ActionResult AjoutTache(string tri = "nom")
       {
          try
          {
-            ViewBag.Message = "Gérer vos taches ";
-
             var ListeTaches =
+            from taches in db.Taches
+            join utilisateurs in db.Utilisateurs on taches.utilisateur equals utilisateurs.id
+            orderby utilisateurs.nom
+            select taches;
+            ViewBag.Message = "Gérer vos taches ";
+            if ((tri == "importance"))
+            {
+                ListeTaches =
                from taches in db.Taches
                join utilisateurs in db.Utilisateurs on taches.utilisateur equals utilisateurs.id
-               orderby utilisateurs.nom
+               orderby taches.importance
                select taches;
+            }
+            else if ((tri == "date"))
+            {
+               ListeTaches =
+              from taches in db.Taches
+              join utilisateurs in db.Utilisateurs on taches.utilisateur equals utilisateurs.id
+              orderby taches.date_saisie
+              select taches;
+            }
+
 
             //   ViewBag.ListeTaches = db.Taches.ToList().OrderBy(t => t.utilisateur.);
             ViewBag.ListeTaches = ListeTaches;
-            ViewBag.listeUtilisateurs = db.Utilisateurs.ToList();
+            ViewBag.ListeUtilisateurs = db.Utilisateurs.ToList();
 
             return View();
          }
@@ -79,6 +94,25 @@ namespace WAGestPerso.Controllers
          }
       }
 
+      [HttpGet]
+      public ActionResult affichageTrie()
+      {
+         if ((Request["tri"] == null) || (Request["tri"] == "nom"))
+         {
+            return RedirectToAction("AjoutTache");
+         }
+         else if (Request["tri"] == "importance")
+         {
+            return RedirectToAction("AjoutTache", new { tri = "importance" } );
+         }
+         else if (Request["tri"] == "date")
+         {
+            return RedirectToAction("AjoutTache", new { tri = "date" });
+         }
+         else
+            return RedirectToAction("AjoutTache");
+
+      }
       public ActionResult ModifierTache(int id)
       {
          try
