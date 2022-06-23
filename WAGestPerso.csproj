@@ -229,6 +229,7 @@
     <Content Include="Views\Taches\AjoutTache.cshtml" />
     <Content Include="Views\Utilisateurs\AjoutUtilisateur.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Taches\TachesNonAffecte.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

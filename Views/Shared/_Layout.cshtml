@@ -27,7 +27,7 @@
                      <li>@Html.ActionLink("Taches", "ajoutTache", "Taches")</li>
                      <li>@Html.ActionLink("Utilisateurs", "ajoutUtilisateur", "Utilisateurs")</li>
                   }
-
+                  <li>@Html.ActionLink("Taches non affectées", "TachesNonAffecte", "Taches")</li>
                </ul>
                <span class="navbar-text" style="float:right;" >
                   @if (User.Identity.IsAuthenticated)

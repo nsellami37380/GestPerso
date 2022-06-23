@@ -12,35 +12,36 @@
       Non affecte
    </div>
 }
+
 @foreach (var data in ViewBag.listeNonAffecte)
 {
 
 
-<div class="row">
+   <div class="row">
 
-   <hr />
+      <hr />
 
-   <div style="background-color: #CCCCCC; font-size: 16px; color: #000000; width: 100%; padding-left:10px">@data.nom</div>
-   <div>@data.date_saisie.ToString("dd/MM/yyyy") importance @importance(data.importance)</div>
+      <div style="background-color: #CCCCCC; font-size: 16px; color: #000000; width: 100%; padding-left:10px">@data.nom</div>
+      <div>@data.date_saisie.ToString("dd/MM/yyyy") importance @importance(data.importance)</div>
 
-   <br />
-   <div>@data.description</div>
-   <br />
-   @if (data.fichiers != null && data.fichiers.Trim() != "")
-   {
-      <label>Fichiers</label>
-      foreach (string fichier in getFichiers(@data.fichiers))
+      <br />
+      <div>@data.description</div>
+      <br />
+      @if (data.fichiers != null && data.fichiers.Trim() != "")
       {
+         <label>Fichiers</label>
+         foreach (string fichier in getFichiers(@data.fichiers))
+         {
 
-         <div><a href="~/Fichiers/@fichier" target="_blank">@fichier</a></div>
+            <div><a href="~/Fichiers/@fichier" target="_blank">@fichier</a></div>
+         }
       }
-   }
-   <br />
-   @if ((User.Identity.IsAuthenticated) && (int.Parse(((FormsIdentity)User.Identity).Ticket.UserData) < 3))
-   {
-      <div><a href="~/Home/sapproprierrTache/@data.id" class="btn btn-warning">S'approprier</a></div>
-   }
-</div>
+      <br />
+      @if ((User.Identity.IsAuthenticated) && (int.Parse(((FormsIdentity)User.Identity).Ticket.UserData) < 3))
+      {
+         <div><a href="~/Home/sapproprierrTache/@data.id" class="btn btn-warning">S'approprier</a></div>
+      }
+   </div>
 
    <hr />
 }

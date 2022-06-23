@@ -128,6 +128,23 @@ namespace WAGestPerso.Controllers
 
       }
 
+      public ActionResult TachesNonAffecte ()
+      {
+         try
+         {
+            
+            ViewBag.listeNonAffecte = db.Taches.ToList().Where(r => r.utilisateur == null);
+            ViewBag.nbNonAffecte = db.Taches.ToList().Where(r => r.utilisateur == null).Count();
+
+            return View();
+         }
+         catch (Exception)
+         {
+
+            return HttpNotFound();
+         }
+      }
+
       public ActionResult  SupprimerTache(int id)
       {
          try
