@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BD_GESTPERSOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BD_GESTPERSOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Taches">
           <Key>
             <PropertyRef Name="id" />
@@ -17,6 +17,10 @@
           <Property Name="date_saisie" Type="datetime" Nullable="false" />
           <Property Name="utilisateur" Type="int" />
           <Property Name="Termine" Type="bit" Nullable="false" />
+          <Property Name="date_normale" Type="datetime" />
+          <Property Name="date_prioritaire" Type="datetime" />
+          <Property Name="date_urgente" Type="datetime" />
+          <Property Name="date_faible" Type="datetime" />
         </EntityType>
         <EntityType Name="Utilisateurs">
           <Key>
@@ -49,8 +53,7 @@
             <End Role="Taches" EntitySet="Taches" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BD_GESTPERSOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -67,6 +70,10 @@
           <Property Name="utilisateur" Type="Int32" />
           <Property Name="Termine" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Utilisateur1" Relationship="Self.FK_Utilisaeurs_Taches" FromRole="Taches" ToRole="Utilisateurs" />
+          <Property Name="date_normale" Type="DateTime" Precision="3" />
+          <Property Name="date_prioritaire" Type="DateTime" Precision="3" />
+          <Property Name="date_urgente" Type="DateTime" Precision="3" />
+          <Property Name="date_faible" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Utilisateur">
           <Key>
@@ -109,6 +116,10 @@
           <EntitySetMapping Name="Taches">
             <EntityTypeMapping TypeName="BD_GESTPERSOModel.Tach">
               <MappingFragment StoreEntitySet="Taches">
+                <ScalarProperty Name="date_faible" ColumnName="date_faible" />
+                <ScalarProperty Name="date_urgente" ColumnName="date_urgente" />
+                <ScalarProperty Name="date_prioritaire" ColumnName="date_prioritaire" />
+                <ScalarProperty Name="date_normale" ColumnName="date_normale" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="nom" ColumnName="nom" />
                 <ScalarProperty Name="description" ColumnName="description" />

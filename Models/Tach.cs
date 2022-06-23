@@ -22,6 +22,10 @@ namespace WAGestPerso.Models
         public System.DateTime date_saisie { get; set; }
         public Nullable<int> utilisateur { get; set; }
         public bool Termine { get; set; }
+        public Nullable<System.DateTime> date_normale { get; set; }
+        public Nullable<System.DateTime> date_prioritaire { get; set; }
+        public Nullable<System.DateTime> date_urgente { get; set; }
+        public Nullable<System.DateTime> date_faible { get; set; }
     
         public virtual Utilisateur Utilisateur1 { get; set; }
     }

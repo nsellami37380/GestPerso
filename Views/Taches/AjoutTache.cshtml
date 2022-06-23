@@ -19,22 +19,15 @@
                <label>Nom</label>
                <input type="text" class="form-control" id="nom_tache" name="nom" value="@(Model!=null?Model.nom:"")" required />
             </div>
-            <div class="form-group">
-               <label>Importance</label>       <br />
-               <select id="importance" name="importance">
-                  <option value="1" @(Model != null ? Model.importance == 1 ? "selected" : "" : "")>Normale</option>
-                  <option value="2" @(Model != null ? Model.importance == 2 ? "selected" : "" : "")>Prioritaire</option>
-                  <option value="3" @(Model != null ? Model.importance == 3 ? "selected" : "" : "")>Urgente</option>
-               </select>
-            </div>
          </div>
 
+         <div class="form-group" style="width:100%;">
+            <label>Description</label>
+            <textarea type="text" id="description_tache" name="description" class="form-control" style="width:100%;" value="" required> @(Model!=null? Model.description:"")  </textarea>
+         </div>
 
          <div class="col-xs-12 col-sm-9">
-            <div class="form-group" style="width:100%;">
-               <label>Description</label>
-               <textarea type="text" id="description_tache" name="description" class="form-control" style="width:100%;" value="" required> @(Model!=null? Model.description:"")  </textarea>
-            </div>
+
             <div class="form-group">
                <label for="fichiers_tache">Fichiers</label>
                <textarea type="text" id="fichiers_tache" class="form-control" name="fichiers" style="white-space:pre-line" value="" readonly> @(Model!=null? Model.fichiers:"") </textarea>
@@ -58,11 +51,32 @@
 
          </div>
       </div>
-      <div class="row">
-         <input type="submit" id="submitTache" name="submitTache" value="Enregistrer" class="btn btn-primary" />
-      </div>
-      <hr />
-   </form>
+      <div class="form-group">
+         <label>Importance</label>       <br />
+         <div class="row">
+            <table class="table table-bordered">
+               <tr>
+                  <th>Faible</th>
+                  <th>Normale</th>
+                  <th>Prioritaire</th>
+                  <th>Urgente</th>
+               </tr>
+               <tr>
+                  <td><input type="date" name="date_faible" pattern="\d{4}-\d{2}-\d{2}"  value=@DateTime.Now.ToString("yyyy-MM-dd") required></td>
+                  <td><input type="date" name="date_normale" pattern="\d{4}-\d{2}-\d{2}"  value=@DateTime.Now.ToString("yyyy-MM-dd") required></td>
+                  <td><input type="date" name="date_prioritaire" pattern="\d{4}-\d{2}-\d{2}"  value=@DateTime.Now.ToString("yyyy-MM-dd") required></td>
+                  <td><input type="date" name="date_urgente" pattern="\d{4}-\d{2}-\d{2}"  value=@DateTime.Now.ToString("yyyy-MM-dd") required></td>
+               </tr>
+            </table>
+
+
+         </div>
+         <div class="row">
+            <input type="submit" id="submitTache" name="submitTache" value="Enregistrer" class="btn btn-primary" />
+         </div>
+         <hr />
+       </div>
+</form>
    <br />
    <form  action="affichageTrie" method="get">
       <h2>Liste des taches</h2>

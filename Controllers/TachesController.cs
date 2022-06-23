@@ -24,26 +24,35 @@ namespace WAGestPerso.Controllers
          {
             var ListeTaches =
             from taches in db.Taches
-            join utilisateurs in db.Utilisateurs on taches.utilisateur equals utilisateurs.id
-            orderby utilisateurs.nom
+            join utilisateurs in db.Utilisateurs on taches.utilisateur equals utilisateurs.id into gj
+
+            from x in gj.DefaultIfEmpty()
+
+            /*let index = x == null ? "" : x.nom
+            orderby index  */
+            orderby x.nom
             select taches;
-            ViewBag.Message = "Gérer vos taches ";
-            if ((tri == "importance"))
-            {
+            
+            // orderby utilisateurs.nom
+            //  select taches;
+            //  ViewBag.Message = "Gérer vos taches ";
+             if ((tri == "importance"))
+             {
+               // todo: requete inutile ??
+                 ListeTaches =
+                from taches in db.Taches
+              //  join utilisateurs in db.Utilisateurs on taches.utilisateur equals utilisateurs.id
+                orderby taches.importance descending
+                select taches;
+             }
+             else if ((tri == "date"))
+             {
                 ListeTaches =
                from taches in db.Taches
-               join utilisateurs in db.Utilisateurs on taches.utilisateur equals utilisateurs.id
-               orderby taches.importance
+              // join utilisateurs in db.Utilisateurs on taches.utilisateur equals utilisateurs.id
+               orderby taches.date_saisie
                select taches;
-            }
-            else if ((tri == "date"))
-            {
-               ListeTaches =
-              from taches in db.Taches
-              join utilisateurs in db.Utilisateurs on taches.utilisateur equals utilisateurs.id
-              orderby taches.date_saisie
-              select taches;
-            }
+             }        
 
 
             //   ViewBag.ListeTaches = db.Taches.ToList().OrderBy(t => t.utilisateur.);
@@ -80,7 +89,23 @@ namespace WAGestPerso.Controllers
                      currentFile.SaveAs(path);
                   }                    
                }
-                
+               //Gestion des priorités
+               if (tache.date_urgente <= DateTime.Now)
+               {
+                  tache.importance = 3;
+               }
+               else if (tache.date_prioritaire <= DateTime.Now)
+               {
+                  tache.importance = 2;
+               }
+               else if (tache.date_prioritaire <= DateTime.Now)
+               {
+                  tache.importance = 1;
+               }
+               else
+               {
+                  tache.importance = 0;
+               }
                db.Taches.Add(tache);
                db.SaveChanges();
                //RedirectToAction("AjoutTache");
