@@ -19,7 +19,10 @@ namespace WAGestPerso.Controllers
          ViewBag.nbNonAffecte = db.Taches.ToList().Where(r => r.utilisateur == null).Count();
          ViewBag.listeNonAffecte = db.Taches.ToList().Where(r => r.utilisateur == null);
 
-
+         // Liste des taches de l'utilisateur en cours triés par priorité
+         Utilisateur utilisateur = db.Utilisateurs.FirstOrDefault(u => u.nom == User.Identity.Name);
+         //tod
+         ViewBag.listeTaches = db.Taches.ToList().Where(t => t.utilisateur == utilisateur.id).OrderByDescending(t => t.importance);
          return View();
       }
 

@@ -6,60 +6,14 @@
 
 <hr />
 
-@if (ViewBag.nbNonAffecte != 0)
-{
+
+
+
    <div style="background-color: #000000; font-size: 16px; color:#FFFFFF; width:100%; padding-left:10px">
-      Non affecte
-   </div>
-}
-
-@foreach (var data in ViewBag.listeNonAffecte)
-{
-
-
-   <div class="row">
-
-      <hr />
-
-      <div style="background-color: #CCCCCC; font-size: 16px; color: #000000; width: 100%; padding-left:10px">@data.nom</div>
-      <div>@data.date_saisie.ToString("dd/MM/yyyy") importance @importance(data.importance)</div>
-
-      <br />
-      <div>@data.description</div>
-      <br />
-      @if (data.fichiers != null && data.fichiers.Trim() != "")
-      {
-         <label>Fichiers</label>
-         foreach (string fichier in getFichiers(@data.fichiers))
-         {
-
-            <div><a href="~/Fichiers/@fichier" target="_blank">@fichier</a></div>
-         }
-      }
-      <br />
-      @if ((User.Identity.IsAuthenticated) && (int.Parse(((FormsIdentity)User.Identity).Ticket.UserData) < 3))
-      {
-         <div><a href="~/Home/sapproprierrTache/@data.id" class="btn btn-warning">S'approprier</a></div>
-      }
+   @User.Identity.Name
    </div>
 
-   <hr />
-}
-
-@foreach (var data in ViewBag.listeUtilisateurs)
-{
-   if (data.Taches.Count == 0) { continue; }
-   Boolean estVide = true;
-   foreach (var tache in data.Taches)
-   {
-      if (!tache.Termine) { estVide = false;break; }
-   }
-   if (estVide) { continue; }
-   <div style="background-color: #000000; font-size: 16px; color:#FFFFFF; width:100%; padding-left:10px">
-      @data.nom
-   </div>
-
-  foreach (var tache in data.Taches)
+  @foreach (var tache in ViewBag.listeTaches)
    {
       <hr />
       <div>
@@ -90,7 +44,7 @@
 
    }
    <br />
-}
+
 @functions
 {
    public List<string> getFichiers(string fichiers)
