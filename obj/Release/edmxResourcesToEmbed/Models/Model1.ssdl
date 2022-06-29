@@ -12,6 +12,10 @@
     <Property Name="date_saisie" Type="datetime" Nullable="false" />
     <Property Name="utilisateur" Type="int" />
     <Property Name="Termine" Type="bit" Nullable="false" />
+    <Property Name="date_normale" Type="datetime" />
+    <Property Name="date_prioritaire" Type="datetime" />
+    <Property Name="date_urgente" Type="datetime" />
+    <Property Name="date_faible" Type="datetime" />
   </EntityType>
   <EntityType Name="Utilisateurs">
     <Key>

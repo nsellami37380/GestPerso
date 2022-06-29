@@ -6,100 +6,142 @@
 
 <h2>Ajouter une tache</h2>
 
- <div>
-    <form id="formTache" name="formTache" action="" method="post" enctype="multipart/form-data">
-       <div class="row" style="width:100%;">
-          @if (Model != null)
-          {
-             <input type="hidden" name="id" id="id" value="@Model.id" />
-          }
-          <input type="hidden" name="date_saisie" id="date_saisie" value="@DateTime.Now" />
-          <div class="col-xs-12 col-sm-3">
-             <div class="form-group">
-                <label>Nom</label>
-                <input type="text" class="form-control" id="nom_tache" name="nom" value="@(Model!=null?Model.nom:"")" required />
-             </div>
-             <div class="form-group">
-                <label>Importance</label>       <br />
-                <select id="importance" name="importance">
-                   <option value="1" @(Model != null ? Model.importance == 1 ? "selected" : "" : "")>Normale</option>
-                   <option value="2" @(Model != null ? Model.importance == 2 ? "selected" : "" : "")>Prioritaire</option>
-                   <option value="3" @(Model != null ? Model.importance == 3 ? "selected" : "" : "")>Urgente</option>
-                </select>
-             </div>
-          </div>
+<div>
+   <form id="formTache" name="formTache" action="" method="post" enctype="multipart/form-data">
+      <div class="row" style="width:100%;">
+         @if (Model != null)
+         {
+            <input type="hidden" name="id" id="id" value="@Model.id" />
+         }
+         <input type="hidden" name="date_saisie" id="date_saisie" value="@DateTime.Now" />
+         <div class="col-xs-12 col-sm-3">
+            <div class="form-group">
+               <label>Nom</label>
+               <input type="text" class="form-control" id="nom_tache" name="nom" value="@(Model!=null?Model.nom:"")" required />
+            </div>
+         </div>
 
+         <div class="form-group" style="width:100%;">
+            <label>Description</label>
+            <textarea type="text" id="description_tache" name="description" class="form-control" style="width:100%;" value="" required> @(Model!=null? Model.description:"")  </textarea>
+         </div>
 
-          <div class="col-xs-12 col-sm-9">
-             <div class="form-group" style="width:100%;">
-                <label>Description</label>
-                <textarea type="text" id="description_tache" name="description" class="form-control" style="width:100%;" value="" required> @(Model!=null? Model.description:"")  </textarea>
-             </div>
-             <div class="form-group">
-                <label for="fichiers_tache">Fichiers</label>
-                <textarea type="text" id="fichiers_tache" class="form-control" name="fichiers" style="white-space:pre-line" value="" readonly> @(Model!=null? Model.fichiers:"") </textarea>
-                <input type="file" id="fichiers" name="fichiers" title="Ajouter" value="Ajouter un fichier" onchange="fileChange(this)" multiple>
-                <!--   <input type="button" value="save to file" onclick="saveToFile()" />  -->
-             </div>
-             <div class="form-group">
+         <div class="col-xs-12 col-sm-9">
 
-                <label>Affecter à un utilisateur</label>
-                <select id="utilisateur" name="utilisateur" class="form-control">
-                   <option value="">Non affecte</option>
-                   @foreach (var data in ViewBag.listeUtilisateurs)
-                   {
+            <div class="form-group">
+               <label for="fichiers_tache">Fichiers</label>
+               <textarea type="text" id="fichiers_tache" class="form-control" name="fichiers" style="white-space:pre-line" value="" readonly> @(Model!=null? Model.fichiers:"") </textarea>
+               <input type="file" id="fichiers" name="fichiers" title="Ajouter" value="Ajouter un fichier" onchange="fileChange(this)" multiple>
+               <!--   <input type="button" value="save to file" onclick="saveToFile()" />  -->
+            </div>
+            <div class="form-group">
 
-                      <option value="@data.id" @(Model != null ? Model.id == data.id ? "selected" : "" : "")>@data.nom</option>
-                   }
+               <label>Affecter à un utilisateur</label>
+               <select id="utilisateur" name="utilisateur" class="form-control">
+                  <option value="">Non affecte</option>
+                  @foreach (var data in ViewBag.ListeUtilisateurs)
+                  {
 
-                </select>
+                     <option value="@data.id" @(Model != null ? Model.utilisateur == data.id ? "selected" : "" : "")>@data.nom</option>
+                  }
 
-             </div>
+               </select>
 
-          </div>
-       </div>
-       <div class="row">
-          <input type="submit" id="submitTache" name="submitTache" value="Enregistrer" class="btn btn-primary" />
-       </div>
-       <hr />
-    </form>
-      <div class="table-responsive">
-         <table class="table table-bordered">
-            <tr>
-               <th>Tache</th>
-               <th>Description</th>
-               <th>Importance</th>
-               <th>Fichiers</th>
-               <th>Date saisie</th>
-               <th>Utilisateur</th>
-            </tr>
-            @foreach (var data in ViewBag.listeTaches)
-            {
-               <tr style="@(data.Termine? "background-color:grey":"")">
-                  <td>@data.nom</td>
-                  <td>@data.description</td>
-                  <td>@(data.importance==1? "Normale" : data.importance == 2 ? "Prioritaire" :"Urgente")   </td>
-                  <td>@data.fichiers</td>
-                  <td>@data.date_saisie</td>
-                  <td>@(data.utilisateur == null? "Non affecte": getNameUtilisateur(data.utilisateur))</td>
-                  <td><a href="~/Taches/ModifierTache/@data.id" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-edit"></span>Modifier</a> </td>
-                  <td>
-                     <a href="~/Taches/SupprimerTache/@data.id"
-                        onclick="return confirm('Voulez-vous vraiment supprimer la tache : @data.description')" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>Supprimer</a>
-                  </td>
+            </div>
+
+         </div>
+      </div>
+      <div class="form-group">
+         <label>Importance</label>       <br />
+         <div class="row">
+            <table class="table table-bordered">
+               <tr>
+                  <th>Faible</th>
+                  <th>Normale</th>
+                  <th>Prioritaire</th>
+                  <th>Urgente</th>
+               </tr>
+               <tr>
+                  <td><input type="date" name="date_faible" pattern="\d{4}-\d{2}-\d{2}"  
+                              value=@(Model != null ?Model.date_faible.ToString("yyyy-MM-dd"):DateTime.Now.ToString("yyyy-MM-dd")) required></td>
+                  <td><input type="date" name="date_normale" pattern="\d{4}-\d{2}-\d{2}" 
+                              value=@(Model != null ?Model.date_normale.ToString("yyyy-MM-dd"):DateTime.Now.ToString("yyyy-MM-dd")) required></td>
+                  <td><input type="date" name="date_prioritaire" pattern="\d{4}-\d{2}-\d{2}"  
+                              value=@(Model != null ?Model.date_prioritaire.ToString("yyyy-MM-dd"):DateTime.Now.ToString("yyyy-MM-dd")) required></td>
+                  <td><input type="date" name="date_urgente" pattern="\d{4}-\d{2}-\d{2}" 
+                              value=@(Model != null ?Model.date_urgente.ToString("yyyy-MM-dd"):DateTime.Now.ToString("yyyy-MM-dd")) required></td>
 
                </tr>
-            }
-         </table>
-      </div>
+            </table>
 
- </div> 
+
+         </div>
+         <div class="row">
+            <input type="submit" id="submitTache" name="submitTache" value="Enregistrer" class="btn btn-primary" 
+                   @(int.Parse(((FormsIdentity)User.Identity).Ticket.UserData) == 3 ? "disabled":"") />
+         </div>
+         <hr />
+       </div>
+</form>
+   <br />
+   <form action="affichageTrie" method="get">
+      <h2>Liste des taches</h2>
+      <label> Trier par </label>
+      <select name="tri" id="tri" onChange="this.parentNode.submit()">
+         <option @(Request["tri"] == "nom" ? "selected" : "")>nom</option>
+         <option @(Request["tri"] == "importance" ? "selected" : "")>importance</option>
+         <option @(Request["tri"] == "date" ? "selected" : "")>date</option>
+      </select>
+      <!--<input type="submit" id="submitTache" name="submitTache" value="Valider" class="btn btn-primary" />  -->
+   </form>
+   <hr />
+   <div class="table-responsive">
+      <table class="table table-bordered">
+         <tr>
+            <th>Tache</th>
+            <th>Description</th>
+            <th>Importance</th>
+            <th>Fichiers</th>
+            <th>Date saisie</th>
+            <th>Utilisateur</th>
+         </tr>
+         @foreach (var data in ViewBag.listeTaches)
+         {
+      <tr style="@(data.Termine? "background-color:grey":"")">
+         <td>@data.nom</td>
+         <td>@data.description</td>
+         <td>@(data.importance==0 ? "Faible": data.importance == 1 ? "Normale" : data.importance == 2 ? "Prioritaire" :"Urgente")   </td>
+         <td>@data.fichiers</td>
+         <td>@data.date_saisie</td>
+         <td>@(data.utilisateur == null? "Non affecte": getNameUtilisateur(data.utilisateur))</td>
+         @if (int.Parse(((FormsIdentity)User.Identity).Ticket.UserData) == 3)
+         {
+            <td><a  class="btn btn-warning btn-xs" disabled><span class="glyphicon glyphicon-edit" disabled></span>Modifier</a> </td>
+            <td>
+               <a 
+                  onclick="return confirm('Voulez-vous vraiment supprimer la tache : @data.description')" class="btn btn-danger btn-xs" disabled><span class="glyphicon glyphicon-remove"></span>Supprimer</a>
+            </td>
+         }
+         else
+         {
+            <td><a href="~/Taches/ModifierTache/@data.id" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-edit"></span>Modifier</a> </td>
+            <td>
+               <a href="~/Taches/SupprimerTache/@data.id"
+                  onclick="return confirm('Voulez-vous vraiment supprimer la tache : @data.description')" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>Supprimer</a>
+            </td>
+         }
+      </tr>
+         }
+      </table>
+   </div>
+
+</div> 
 @functions
  {
    public string getNameUtilisateur(int id)
     {
 
-       foreach(var data in ViewBag.listeUtilisateurs)
+       foreach(var data in ViewBag.ListeUtilisateurs)
        {
           if (data.id == id ) { return data.nom; }
        }
@@ -121,7 +163,8 @@
        document.getElementById("fichiers_tache").style.height = lesFichiers.files.length * 25 + "px";
 
     }
-    var data = { "firstField" : "value1", "secondField": "value2" };
+    var data = { "firstField": "value1", "secondField": "value2" };
+
     function saveToFile() {
         $.ajax({
        url: "/ControllerName/ActionName",
@@ -132,6 +175,22 @@
 
           },
             error: function (xhr) {
+             console.log(xhr);
+          }
+       });
+    };
+
+
+    function vueTrie(tri) {
+       $.ajax({
+          url: "/ControllerName/ActionName",
+          type: "POST",
+          contentType: "application/json",
+          data: JSON.stringify(data),
+          success: function (data) {
+
+          },
+          error: function (xhr) {
              console.log(xhr);
           }
        });

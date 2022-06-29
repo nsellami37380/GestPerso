@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>C:\Users\Sellami Noureddine\source\repos\WAGestPerso\bin\app.publish\</_PublishTargetUrl>
-    <History>True|2022-06-14T07:23:56.4770389Z;True|2022-06-14T08:26:38.6455005+02:00;</History>
+    <History>True|2022-06-29T07:49:39.7556398Z;True|2022-06-29T08:44:40.3237567+02:00;True|2022-06-14T09:23:56.4770389+02:00;True|2022-06-14T08:26:38.6455005+02:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Antlr3.Runtime.dll">
@@ -237,10 +237,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>11/28/2018 12:04:24</publishTime>
     </File>
     <File Include="bin/WAGestPerso.dll">
-      <publishTime>06/14/2022 09:23:52</publishTime>
+      <publishTime>06/29/2022 09:49:35</publishTime>
     </File>
     <File Include="bin/WAGestPerso.pdb">
-      <publishTime>06/14/2022 09:23:52</publishTime>
+      <publishTime>06/29/2022 09:49:35</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>01/23/2014 12:57:34</publishTime>
@@ -342,7 +342,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>05/30/2022 08:28:58</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>06/13/2022 20:34:10</publishTime>
+      <publishTime>06/28/2022 22:56:23</publishTime>
     </File>
     <File Include="Views/Login/Login.cshtml">
       <publishTime>06/04/2022 13:40:45</publishTime>
@@ -351,13 +351,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>05/30/2022 08:28:58</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>06/13/2022 06:58:17</publishTime>
+      <publishTime>06/27/2022 22:49:03</publishTime>
     </File>
     <File Include="Views/Taches/AjoutTache.cshtml">
-      <publishTime>06/13/2022 23:32:50</publishTime>
+      <publishTime>06/29/2022 09:27:13</publishTime>
+    </File>
+    <File Include="Views/Taches/TachesNonAffecte.cshtml">
+      <publishTime>06/28/2022 23:01:21</publishTime>
     </File>
     <File Include="Views/Utilisateurs/AjoutUtilisateur.cshtml">
-      <publishTime>06/14/2022 09:03:29</publishTime>
+      <publishTime>06/28/2022 23:21:30</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>05/30/2022 08:28:58</publishTime>

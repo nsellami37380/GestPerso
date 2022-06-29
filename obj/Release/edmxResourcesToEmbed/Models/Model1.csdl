@@ -13,6 +13,10 @@
     <Property Name="utilisateur" Type="Int32" />
     <Property Name="Termine" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Utilisateur1" Relationship="Self.FK_Utilisaeurs_Taches" FromRole="Taches" ToRole="Utilisateurs" />
+    <Property Name="date_normale" Type="DateTime" Precision="3" />
+    <Property Name="date_prioritaire" Type="DateTime" Precision="3" />
+    <Property Name="date_urgente" Type="DateTime" Precision="3" />
+    <Property Name="date_faible" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="Utilisateur">
     <Key>

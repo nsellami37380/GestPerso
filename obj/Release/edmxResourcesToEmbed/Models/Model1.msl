@@ -4,6 +4,10 @@
     <EntitySetMapping Name="Taches">
       <EntityTypeMapping TypeName="BD_GESTPERSOModel.Tach">
         <MappingFragment StoreEntitySet="Taches">
+          <ScalarProperty Name="date_faible" ColumnName="date_faible" />
+          <ScalarProperty Name="date_urgente" ColumnName="date_urgente" />
+          <ScalarProperty Name="date_prioritaire" ColumnName="date_prioritaire" />
+          <ScalarProperty Name="date_normale" ColumnName="date_normale" />
           <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="nom" ColumnName="nom" />
           <ScalarProperty Name="description" ColumnName="description" />

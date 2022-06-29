@@ -1,0 +1,76 @@
+﻿
+@{
+   ViewBag.Title = "TachesNonAffecte";
+   Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Liste des taches non affectées</h2>
+
+<hr />
+
+@if (ViewBag.nbNonAffecte != 0)
+{
+   <div style="background-color: #000000; font-size: 16px; color:#FFFFFF; width:100%; padding-left:10px">
+      Non affecte
+   </div>
+}
+
+@foreach (var data in ViewBag.listeNonAffecte)
+{
+
+
+<div class="row">
+
+   <hr />
+
+   <div style="background-color: #CCCCCC; font-size: 16px; color: #000000; width: 100%; padding-left:10px">@data.nom</div>
+   <div>@data.date_saisie.ToString("dd/MM/yyyy") importance @importance(data.importance)</div>
+
+   <br />
+   <div>@data.description</div>
+   <br />
+   @if (data.fichiers != null && data.fichiers.Trim() != "")
+   {
+      <label>Fichiers</label>
+      foreach (string fichier in getFichiers(@data.fichiers))
+      {
+
+         <div><a href="~/Fichiers/@fichier" target="_blank">@fichier</a></div>
+      }
+   }
+   <br />
+   @if (int.Parse(((FormsIdentity)User.Identity).Ticket.UserData) == 3)
+   {
+      <div><a class="btn btn-warning" disabled>S'approprier</a></div>
+   }
+   else
+   {
+      <div><a href="~/Home/sapproprierrTache/@data.id" class="btn btn-warning">S'approprier</a></div>
+   }
+</div>
+
+   <hr />
+}
+
+@functions
+{
+   public List<string> getFichiers(string fichiers)
+   {
+      List<string> result = fichiers.Split(';').ToList();
+      return result;
+   }
+
+   public string importance(int i)
+   {
+      switch (i)
+      {
+         case 1: return "Normale";
+         case 2: return "Prioritaire";
+         default: return "Urgente";
+      }
+   }
+
+
+
+}
+
