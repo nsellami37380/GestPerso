@@ -9,9 +9,9 @@
 
 
 
-   <div style="background-color: #000000; font-size: 16px; color:#FFFFFF; width:100%; padding-left:10px">
-   @User.Identity.Name
-   </div>
+<div style="background-color: #000000; font-size: 16px; color:#FFFFFF; width:100%; padding-left:10px">
+   <!--@User.Identity.Name    --> Mes Taches
+</div>
 
   @foreach (var tache in ViewBag.listeTaches)
    {
@@ -36,7 +36,7 @@
                }
             }
             <hr />
-            <label>Marquer comme terminer</label>
+            <label>Marquer comme terminé</label>
             <div><a href="~/Home/TerminerTache/@tache.id" class="btn btn-warning">Termine</a></div>
 
          </div>

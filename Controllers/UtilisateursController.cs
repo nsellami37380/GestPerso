@@ -15,10 +15,7 @@ namespace WAGestPerso.Controllers
    public class UtilisateursController : Controller
     {
       BD_GESTPERSOEntities db = new BD_GESTPERSOEntities();
-      // GET: Utilisateurs
-
-      //public applicationRoleManager u; 
-      
+   
       
       
       public ActionResult AjoutUtilisateur()
@@ -28,6 +25,7 @@ namespace WAGestPerso.Controllers
             ViewBag.listeUtilisateurs = db.Utilisateurs.ToList();
             return View();
          }
+         // todo: gerer les exceptions
          catch (Exception)
          {
             return HttpNotFound();
@@ -42,7 +40,7 @@ namespace WAGestPerso.Controllers
          {
             if (ModelState.IsValid)
             {
-
+               // file pour photo
                if (Request.Files.Count > 0)
                {
                   var file = Request.Files[0];
@@ -54,7 +52,7 @@ namespace WAGestPerso.Controllers
                      utilisateur.photo = fileName;
                   }
                }
-
+               // todo: pas de sel ! obsolete ?
                utilisateur.mdp = FormsAuthentication.HashPasswordForStoringInConfigFile(utilisateur.mdp, "SHA1");
                db.Utilisateurs.Add(utilisateur);
                db.SaveChanges();
@@ -67,7 +65,6 @@ namespace WAGestPerso.Controllers
             return HttpNotFound();
          }
       }
-
       
        public ActionResult ModifierUtilisateur(int id)
       {

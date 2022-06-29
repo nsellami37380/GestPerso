@@ -17,12 +17,12 @@ namespace WAGestPerso.Controllers
          return View(lm);
       }
 
-      [HttpPost]
+      // ---------------------------------------------------------------------------------------
+          [HttpPost]
       public ActionResult login(LoginModel loginModel, string returnUrl)
       {
-           if (!string.IsNullOrEmpty(loginModel.UserName)
+         if (!string.IsNullOrEmpty(loginModel.UserName)
              && !string.IsNullOrEmpty(loginModel.Password))
-         //if ((loginModel.UserName == "admin") && (loginModel.Password == "admin"))
          {
             BD_GESTPERSOEntities db = new BD_GESTPERSOEntities();
             Utilisateur user = db.Utilisateurs.FirstOrDefault(u => u.nom == loginModel.UserName);
@@ -30,7 +30,7 @@ namespace WAGestPerso.Controllers
             {
                return RedirectToAction("Login");
             }
-            string role;
+           // string role;
             FormsAuthentication.SetAuthCookie(loginModel.UserName, false);
           /*  switch (user.role) 
             { 
@@ -39,7 +39,7 @@ namespace WAGestPerso.Controllers
                default: role = "Visiteur"; break;
             }    */
             var ticket = new FormsAuthenticationTicket(1, loginModel.UserName, DateTime.Now,
-                DateTime.Now.AddMinutes(60), false, user.role.ToString());
+                DateTime.Now.AddMinutes(60), false, user.role.ToString());     // user.role est enregistré dans userData
              var encryptedTicket = FormsAuthentication.Encrypt(ticket);
              var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
 
@@ -62,7 +62,6 @@ namespace WAGestPerso.Controllers
       {
          FormsAuthentication.SignOut();
          return RedirectToAction("Login");
-         //return View("Login");
       }
 
       // ---------------------------------------------------------------------------------------

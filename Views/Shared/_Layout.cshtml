@@ -22,7 +22,7 @@
             <div class="navbar-collapse collapse">
                <ul class="nav navbar-nav">
                   <li>@Html.ActionLink("Accueil", "Index", "Home")</li>
-                  @if ((User.Identity.IsAuthenticated) && (int.Parse(((FormsIdentity)User.Identity).Ticket.UserData) < 2))
+                  @if((User.Identity.IsAuthenticated) && (int.Parse(((FormsIdentity)User.Identity).Ticket.UserData) != 2))
                   {
                      <li>@Html.ActionLink("Taches", "ajoutTache", "Taches")</li>
                      <li>@Html.ActionLink("Utilisateurs", "ajoutUtilisateur", "Utilisateurs")</li>
@@ -32,7 +32,7 @@
                <span class="navbar-text" style="float:right;" >
                   @if (User.Identity.IsAuthenticated)
                   {
-                     @("Welcome: ")<b>@User.Identity.Name</b>
+                     @("Bienvenue ")<b style="margin-right:30px">@User.Identity.Name </b> 
                      @Html.ActionLink("Logout", "LogOut", "Login");
                   }
                   else

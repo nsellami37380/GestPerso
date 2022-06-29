@@ -21,26 +21,14 @@ namespace WAGestPerso.Controllers
 
          // Liste des taches de l'utilisateur en cours triés par priorité
          Utilisateur utilisateur = db.Utilisateurs.FirstOrDefault(u => u.nom == User.Identity.Name);
-         //tod
          ViewBag.listeTaches = db.Taches.ToList().Where(t => t.utilisateur == utilisateur.id).OrderByDescending(t => t.importance);
          return View();
       }
 
-      public ActionResult About()
-      {
-         ViewBag.Message = "Your application description page.";
-
-         return View();
-      }
-
-      public ActionResult Contact()
-      {
-         ViewBag.Message = "Your contact page.";
-
-         return View();
-      }
+    
       public ActionResult sapproprierrTache(int id)
       {
+         // Utiliser dans la vue home : une utilisateur s'affecte une tache non affectée
          Tach tache = db.Taches.Find(id);
          Utilisateur utilisateur = db.Utilisateurs.FirstOrDefault(u => u.nom == User.Identity.Name);
          tache.utilisateur = utilisateur.id;

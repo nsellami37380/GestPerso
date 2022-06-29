@@ -18,30 +18,26 @@ namespace WAGestPerso.Controllers
            return View();
        }
 
+      // ---------------------------------------------------------------------------------------
       public ActionResult AjoutTache(string tri = "nom")
       {
+         // Action qui affiche les taches
          try
          {
+            // Par defaut on tri par le nom des utilisateur, joijnture à gauche il y a des taches sans utilisateur
             var ListeTaches =
             from taches in db.Taches
             join utilisateurs in db.Utilisateurs on taches.utilisateur equals utilisateurs.id into gj
-
             from x in gj.DefaultIfEmpty()
 
-            /*let index = x == null ? "" : x.nom
-            orderby index  */
             orderby x.nom
             select taches;
             
-            // orderby utilisateurs.nom
-            //  select taches;
-            //  ViewBag.Message = "Gérer vos taches ";
              if ((tri == "importance"))
              {
-               // todo: requete inutile ??
-                 ListeTaches =
+               // todo: requete inutile ??  ListeTaches = db.Taches.ToList().OrderByDescending(t => t.importance);
+               ListeTaches =
                 from taches in db.Taches
-              //  join utilisateurs in db.Utilisateurs on taches.utilisateur equals utilisateurs.id
                 orderby taches.importance descending
                 select taches;
              }
@@ -49,11 +45,9 @@ namespace WAGestPerso.Controllers
              {
                 ListeTaches =
                from taches in db.Taches
-              // join utilisateurs in db.Utilisateurs on taches.utilisateur equals utilisateurs.id
                orderby taches.date_saisie
                select taches;
-             }        
-
+             } 
 
             //   ViewBag.ListeTaches = db.Taches.ToList().OrderBy(t => t.utilisateur.);
             ViewBag.ListeTaches = ListeTaches;
@@ -75,6 +69,7 @@ namespace WAGestPerso.Controllers
             if(ModelState.IsValid)
             {
                tache.date_saisie = DateTime.Now;
+               // si des fichiers sont présents on les ajoutent
                tache.fichiers = "";
                for (int i = 0; i < Request.Files.Count; i++)
                {
@@ -108,7 +103,7 @@ namespace WAGestPerso.Controllers
                }
                db.Taches.Add(tache);
                db.SaveChanges();
-               //RedirectToAction("AjoutTache");
+
             }
             return RedirectToAction("AjoutTache");
          }
@@ -122,6 +117,7 @@ namespace WAGestPerso.Controllers
       [HttpGet]
       public ActionResult affichageTrie()
       {
+         // Par defaut on trie par nom
          if ((Request["tri"] == null) || (Request["tri"] == "nom"))
          {
             return RedirectToAction("AjoutTache");
@@ -224,6 +220,8 @@ namespace WAGestPerso.Controllers
             }
 
          }
+         // todo : gerer les differentes exceptions attention souvent innerException il faudrait sauvegarder dans un fichier ou base et envoyer
+         // un mail à l'administrateur avec le service déja présent
          catch (Exception)
          {
             return HttpNotFound();

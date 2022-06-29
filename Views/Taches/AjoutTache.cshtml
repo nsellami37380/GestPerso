@@ -42,7 +42,7 @@
                   @foreach (var data in ViewBag.ListeUtilisateurs)
                   {
 
-                     <option value="@data.id" @(Model != null ? Model.id == data.id ? "selected" : "" : "")>@data.nom</option>
+                     <option value="@data.id" @(Model != null ? Model.utilisateur == data.id ? "selected" : "" : "")>@data.nom</option>
                   }
 
                </select>
@@ -72,21 +72,22 @@
 
          </div>
          <div class="row">
-            <input type="submit" id="submitTache" name="submitTache" value="Enregistrer" class="btn btn-primary" />
+            <input type="submit" id="submitTache" name="submitTache" value="Enregistrer" class="btn btn-primary" 
+                   @(int.Parse(((FormsIdentity)User.Identity).Ticket.UserData) == 3 ? "disabled":"") />
          </div>
          <hr />
        </div>
 </form>
    <br />
-   <form  action="affichageTrie" method="get">
+   <form action="affichageTrie" method="get">
       <h2>Liste des taches</h2>
       <label> Trier par </label>
-      <select name="tri" id="tri">
-         <option @(Request["tri"]=="nom"?"selected":"") >nom</option>
-         <option @(Request["tri"]=="importance" ? "selected":"") >importance</option>
-         <option @(Request["tri"]=="date"?"selected":"") >date</option>
+      <select name="tri" id="tri" onChange="this.parentNode.submit()">
+         <option @(Request["tri"] == "nom" ? "selected" : "")>nom</option>
+         <option @(Request["tri"] == "importance" ? "selected" : "")>importance</option>
+         <option @(Request["tri"] == "date" ? "selected" : "")>date</option>
       </select>
-      <input type="submit" id="submitTache" name="submitTache" value="Valider" class="btn btn-primary" />
+      <!--<input type="submit" id="submitTache" name="submitTache" value="Valider" class="btn btn-primary" />  -->
    </form>
    <hr />
    <div class="table-responsive">
@@ -101,20 +102,30 @@
          </tr>
          @foreach (var data in ViewBag.listeTaches)
          {
-            <tr style="@(data.Termine? "background-color:grey":"")">
-               <td>@data.nom</td>
-               <td>@data.description</td>
-               <td>@(data.importance==1? "Normale" : data.importance == 2 ? "Prioritaire" :"Urgente")   </td>
-               <td>@data.fichiers</td>
-               <td>@data.date_saisie</td>
-               <td>@(data.utilisateur == null? "Non affecte": getNameUtilisateur(data.utilisateur))</td>
-               <td><a href="~/Taches/ModifierTache/@data.id" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-edit"></span>Modifier</a> </td>
-               <td>
-                  <a href="~/Taches/SupprimerTache/@data.id"
-                     onclick="return confirm('Voulez-vous vraiment supprimer la tache : @data.description')" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>Supprimer</a>
-               </td>
-
-            </tr>
+      <tr style="@(data.Termine? "background-color:grey":"")">
+         <td>@data.nom</td>
+         <td>@data.description</td>
+         <td>@(data.importance==0 ? "Faible": data.importance == 1 ? "Normale" : data.importance == 2 ? "Prioritaire" :"Urgente")   </td>
+         <td>@data.fichiers</td>
+         <td>@data.date_saisie</td>
+         <td>@(data.utilisateur == null? "Non affecte": getNameUtilisateur(data.utilisateur))</td>
+         @if (int.Parse(((FormsIdentity)User.Identity).Ticket.UserData) == 3)
+         {
+            <td><a  class="btn btn-warning btn-xs" disabled><span class="glyphicon glyphicon-edit" disabled></span>Modifier</a> </td>
+            <td>
+               <a 
+                  onclick="return confirm('Voulez-vous vraiment supprimer la tache : @data.description')" class="btn btn-danger btn-xs" disabled><span class="glyphicon glyphicon-remove"></span>Supprimer</a>
+            </td>
+         }
+         else
+         {
+            <td><a href="~/Taches/ModifierTache/@data.id" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-edit"></span>Modifier</a> </td>
+            <td>
+               <a href="~/Taches/SupprimerTache/@data.id"
+                  onclick="return confirm('Voulez-vous vraiment supprimer la tache : @data.description')" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>Supprimer</a>
+            </td>
+         }
+      </tr>
          }
       </table>
    </div>

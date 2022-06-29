@@ -43,7 +43,8 @@
          </div>
       </div>
       <div class="row">
-         <input type="submit" id="submitTache" name="submitTache" value="Enregistrer" class="btn btn-primary" />
+         <input type="submit" id="submitTache" name="submitTache" value="Enregistrer" class="btn btn-primary" 
+                @(int.Parse(((FormsIdentity)User.Identity).Ticket.UserData) == 3 ? " disabled":"") />
       </div>
       <hr />
    </form>
@@ -58,20 +59,43 @@
 
          @foreach (var data in ViewBag.listeUtilisateurs)
          {
-            <tr>
-               <td>@data.nom</td>
-               @if(data.photo == null) { data.photo = "user.jpg"; }
-               <td><img src="~/Images/@data.photo" width="100" height="80" /></td>
-               <td>@data.email</td>
-               <td>@(data.role == 1 ? "administrateur" : data.role == 2 ? "Utilisateur" : "Visiteur") </td>
-               <td><a href="~/Utilisateurs/ModifierUtilisateur/@data.id" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-edit"></span>Modifier</a> </td>
-               @if (data.Taches.Count == 0)
-               {
-               <td><a href="~/Utilisateurs/SupprimerUtilisateur/@data.id" 
-                      onclick="return confirm('Voulez-vous vraiment supprimer l\'utilisateur : @data.nom')"
-                      class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>Supprimer</a></td>
-               }
-            </tr>
+      <tr>
+         <td>@data.nom</td>
+         @if (data.photo == null) { data.photo = "user.jpg"; }
+         <td><img src="~/Images/@data.photo" width="100" height="80" /></td>
+         <td>@data.email</td>
+         <td>@(data.role == 1 ? "administrateur" : data.role == 2 ? "Utilisateur" : "Visiteur") </td>
+
+         @if (int.Parse(((FormsIdentity)User.Identity).Ticket.UserData) == 3)
+         {
+         <td><a disabled class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-edit"></span>Modifier</a> </td>
+
+         }else
+         {
+         <td><a href="~/Utilisateurs/ModifierUtilisateur/@data.id" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-edit"></span>Modifier</a> </td>
+
+         }
+
+         @if (data.Taches.Count == 0)
+         {
+            if (int.Parse(((FormsIdentity)User.Identity).Ticket.UserData) == 3)
+            {
+               <td>
+                  <a disabled 
+                     onclick="return confirm('Voulez-vous vraiment supprimer l\'utilisateur : @data.nom')"
+                     class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span>Supprimer</a>
+               </td>
+            }
+            else
+            {
+               <td>
+                  <a  href="~/Utilisateurs/SupprimerUtilisateur/@data.id"
+                     onclick="return confirm('Voulez-vous vraiment supprimer l\'utilisateur : @data.nom')"
+                     class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove" disabled></span>Supprimer</a>
+               </td>
+            }
+         }
+      </tr>
 
          }
 
